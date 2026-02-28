@@ -605,6 +605,7 @@ p {
 /* #endregion */
 
 /* #region Backdrop */
+
 .backdrop {
   position: fixed;
   top: 0;
@@ -612,20 +613,22 @@ p {
   width: 100%;
   height: 100%;
   background-color: rgba(46, 47, 66, 0.4);
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
-
+  justify-content: center; */
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+  transition:
+    opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* .backdrop.is-open {
+.backdrop.is-open {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-} */
+}
 
 .modal {
   position: absolute;
@@ -635,6 +638,7 @@ p {
   width: 408px;
   min-height: 584px;
   border-radius: 4px;
+  padding: 72px 24px 24px;
 
   transform: translate(-50%, -50%);
 
@@ -643,5 +647,187 @@ p {
     0 1px 3px 0 rgba(0, 0, 0, 0.12),
     0 2px 1px 0 rgba(0, 0, 0, 0.2);
   background-color: #fcfcfc;
+
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+.backdrop:not(.is-open) .modal {
+  transform: translate(-50%, -50%) scale(1.5);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 24px;
+  height: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #e7e9fc;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.modal-close-btn:hover {
+  background-color: #404bbf;
+}
+
+.modal-close-btn:hover .modal-close-img {
+  fill: #fff;
+}
+
+.modal-text {
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+/* #region Modal_form */
+.callback-form {
+}
+.callback-wrapper {
+  margin-bottom: 8px;
+}
+.callback-label {
+  display: block;
+  font-size: 12px;
+  line-height: 1.17;
+  letter-spacing: 0.04em;
+  color: #8e8f99;
+  margin-bottom: 4px;
+}
+.callback-field {
+  position: relative;
+}
+.callback-input {
+  border: 1px solid rgba(46, 47, 66, 0.4);
+  border-radius: 4px;
+  width: 100%;
+  height: 40px;
+  padding: 8px 38px;
+  outline: none;
+  transition: border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.callback-input:focus {
+  border-color: #4d5ae5;
+}
+
+.callback-input-icon {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  fill: #2e2f42;
+  pointer-events: none;
+  transition: fill 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.callback-input:focus + .callback-input-icon {
+  fill: #4d5ae5;
+}
+
+.callback-textarea {
+  width: 100%;
+  height: 120px;
+  border: 1px solid rgba(46, 47, 66, 0.4);
+  border-radius: 4px;
+  padding: 8px 16px;
+  outline: none;
+
+  font-size: 12px;
+  line-height: 1.17;
+  letter-spacing: 0.04em;
+
+  resize: none;
+}
+
+.callback-textarea:focus {
+  border-color: #4d5ae5;
+  transition: border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.callback-textarea::placeholder {
+  color: rgba(46, 47, 66, 0.4);
+}
+
+/* Custom chekbox */
+.callback-agree-label {
+  display: block;
+  margin-bottom: 25px;
+
+  font-size: 12px;
+  line-height: 1.17;
+  letter-spacing: 0.04em;
+  color: #8e8f99;
+}
+.callback-agree-input:checked + .callback-toggler {
+  background-color: #404bbf;
+  border-color: transparent;
+}
+
+.callback-agree-input:checked + .callback-toggler > .callback-toggler-icon {
+  opacity: 1;
+  fill: #f4f4fd;
+}
+
+.callback-toggler-icon {
+  opacity: 0;
+  fill: none;
+  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.callback-toggler {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-right: 8px;
+
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+  border: 1px solid rgba(46, 47, 66, 0.4);
+  transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-property: background-color, border-color;
+
+  cursor: pointer;
+}
+.callback-toggler-icon {
+  opacity: 0;
+}
+.callback-link {
+  line-height: 1.33;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: #4d5ae5;
+}
+/* end Custom chekbox */
+.callback-submit-btn {
+  display: block;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 16px 32px;
+  min-width: 169px;
+  margin: 0 auto;
+  height: 56px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.15);
+  background: #4d5ae5;
+  transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.callback-submit-btn:focus,
+.callback-submit-btn:hover {
+  background-color: #404bbf;
+}
+/* #endregion */
 /* #endregion */
